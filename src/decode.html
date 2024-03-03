@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caesar Cipher Text to Plain Text</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anta&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module" src="scripts/decode.js" defer></script>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <a href="index.html">Encrypt Text</a>
+      </div>
+      <div>
+        <a href="decode.html">Decrypt Text</a>
+      </div>
+    </div>
+    <div class="content">
+      <div class="cipher-text">
+          <form id="cipherForm" class="cipher-form-decode">
+              <div class="input-container">
+                <input class="cipher-input" type="text" placeholder="Enter the encrypted text..."></input>
+              </div>
+              <input class="cipher-submit" type="submit">
+          </form>
+      </div>
+        <div class="card-container">
+          <!-- <div class="card">
+            <img src="copy.png" class="copy-icon" alt="Copy to clipboard" onclick="copyText()">
+            <div class="card-content">
+              <p>Decrypted Text: <span id="matchText">asads poasd asdoi asd aosid j</span></p>
+              <p>Legitimacy Score: <span id="matchPercentage">0%</span></p>
+              <p>Shift Number: <span id="cipherConverter">17</span></p>
+            </div>
+          </div> -->
+        </div>
+    </div>
+    <!-- https://loading.io/css/ -->
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <footer>
+      <p>
+        &copy; <span id="currentYear"></span>
+        <a href="https://github.com/NipulM" target="_blank">NipulM</a> | All
+        Rights Reserved.
+      </p>
+    </footer>
+  </body>
+</html>

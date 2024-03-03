@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caesar Cipher</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anta&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module" src="scripts/script.js" defer></script>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <a href="index.html">Encrypt Text</a>
+      </div>
+      <div>
+        <a href="decode.html">Decrypt Text</a>
+      </div>
+    </div>
+    <div class="plain-text">
+      <form id="cipherForm" class="cipher-form">
+        <div class="input-container">
+          <input class="user-input" type="text" placeholder="Enter the text you want to encrypt..."></input>
+        </div>
+        <div class="buttons">
+          <div class="num-input">
+            <span class="input-number-decrement">-</span>
+            <input class="input-number" type="text" min="1" max="26" placeholder="ShiftNum" required>
+            <span class="input-number-increment">+</span>
+          </div>
+          <input class="submit" type="submit">
+          <button class="clear-button" type="button">Clear</button>
+        </div>
+      </form>
+    </div>
+    <div class="card-container index">
+      <!-- <div class="card">
+        <img src="images/copy.png" class="copy-icon" alt="Copy to clipboard" onclick="copyText(this)">
+        <div class="card-content">
+          <p>Decrypted Text: <span id="matchText">asads poasd asdoi asd aosid j</span></p>
+          <p>Legitimacy Score: <span id="matchPercentage">0%</span></p>
+          <p>Shift Number: <span id="cipherConverter">17</span></p>
+        </div>
+      </div>
+      <div class="buttons-index">
+        <button class="try-again" type="button" onclick="tryAgain()">
+          <img src="images/refresh.png" alt="Try again">
+          Try again
+        </button>
+        <button class="try-again" type="button" onclick="getAll()">
+          <img src="images/refresh.png" alt="Get All">
+          Try again
+        </button>
+       </div> -->
+    </div>
+    <!-- https://loading.io/css/ -->
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <footer>
+      <p>
+        &copy; <span id="currentYear"></span>
+        <a href="https://github.com/NipulM" target="_blank">NipulM</a> | All
+        Rights Reserved.
+      </p>
+    </footer>
+  </body>
+</html>

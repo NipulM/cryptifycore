@@ -1,0 +1,15 @@
+{
+  "name": "cryptifycore",
+  "version": "1.0.0",
+  "description": "A web application for encrypting and decrypting messages using the Caesar cipher technique. Users can input plain text and the website will generate encrypted messages, and vice versa. Additionally, it provides a feature to reverse decrypted messages and find the most likely shift used for encryption, along with the decrypted message.",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --dist-dir ./dist --no-scope-hoist"
+  },
+  "author": "NipulM",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "parcel-plugin-json": "^1.0.1"
+  }
+}
