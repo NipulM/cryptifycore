@@ -16,7 +16,6 @@ body {
 
 .header {
   display: flex;
-  /* justify-content: space-between; */
   justify-content: flex-end;
   align-items: center;
   height: 60px;
@@ -45,10 +44,19 @@ body {
   align-items: center;
   justify-content: center;
   position: absolute;
+  gap: 8px;
+}
+
+.plain-text-before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  gap: 8px;
+}
+
+.plain-text-after {
+  top: 150px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .cipher-form-decode {
@@ -89,6 +97,11 @@ body {
   align-items: center;
   width: 450px;
   justify-content: space-around;
+}
+
+.buttons-decode {
+  width: 275px;
+  justify-content: space-evenly;
 }
 
 .num-input {
@@ -266,6 +279,20 @@ footer p a {
   height: auto;
 }
 
+.get-all {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+  width: 100px;
+  height: 33px;
+}
+
+.get-all img {
+  width: 22px;
+  height: auto;
+}
+
 .buttons-index {
   display: flex;
   gap: 40px;
@@ -273,6 +300,18 @@ footer p a {
 
 .correct {
   box-shadow: 0px 0px 4px 4px rgba(164, 247, 177, 0.5) !important;
+}
+
+.original {
+  box-shadow: 0px 0px 4px 4px rgba(88, 167, 204, 0.5) !important;
+}
+
+.coppied {
+  box-shadow: 0px 0px 4px 4px rgba(124, 241, 14, 0.2) !important;
+}
+
+.error {
+  box-shadow: 0px 0px 4px 4px rgba(222, 31, 10, 0.2) !important;
 }
 
 .card {
@@ -293,6 +332,47 @@ footer p a {
   cursor: pointer;
   width: auto;
   height: 40px;
+}
+
+.popup {
+  height: 35px;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  position: fixed;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 1);
+  padding: 20px;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+.popup img {
+  height: auto;
+  width: 22px;
+  margin-right: 10px;
+}
+
+.popup p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Start with opacity 0 */
+  }
+  to {
+    opacity: 1; /* Fade in with opacity 1 */
+  }
 }
 
 /* spinner  */
@@ -353,10 +433,8 @@ footer p a {
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 50%;
-    left: 52%;
-    transform: translate(-50%, -50%);
     gap: 8px;
+    left: 52%;
   }
 
   .user-input {
@@ -366,9 +444,12 @@ footer p a {
   .buttons {
     width: 40vh;
   }
-}
 
-@media only screen and (max-width: 499px) {
+  .buttons-decode {
+    width: 275px;
+    justify-content: space-evenly;
+  }
+
   .cipher-input {
     width: 40vh;
   }

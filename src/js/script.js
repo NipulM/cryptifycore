@@ -1,20 +1,64 @@
 import alphabetLetters from "../json_files/alphabet.json";
+import words from "../json_files/words.json";
 import copyIcon from "../images/copy.png";
 import refreshIcon from "../images/refresh.png";
+import { renderObject, renderPopup } from "./view/render";
+import checkIcon from "../images/check-mark.png";
+import errorIcon from "../images/error.png";
+import getAllIcon from "../images/getall.png";
+import { cipherConv as encryptFunction, calcCorrectShift } from "./model";
 
-// console.log(copyIcon, refreshIcon);
-const alphabetLetters = alphabetLetters;
-const images = { copyIcon, refreshIcon };
+const data = { alphabetLetters, words };
+const images = { copyIcon, refreshIcon, checkIcon, errorIcon, getAllIcon };
 
 var cipherForm = document.getElementById("cipherForm");
 document.getElementById("currentYear").textContent = new Date().getFullYear();
-document.querySelector(".lds-ring").classList.add("display-none");
 
 const userInput = document.querySelector(".user-input");
 const submit = document.querySelector(".submit");
 const numInput = document.querySelector(".num-input ");
 const clearButton = document.querySelector(".clear-button");
-const buttonsAfter = document.querySelector(".buttons-index");
+
+let userString = "";
+let submitCounter = 0;
+
+export const getAll = async function () {
+  document.querySelector(".lds-ring").classList.remove("display-none");
+  document.querySelector(".buttons-index").innerHTML = "";
+  document.querySelector(".card").classList.add("display-none");
+
+  const conversions = await encryptFunction(userString, data);
+  const sortedArray = await calcCorrectShift(data.words, conversions)
+    .then((sortedArray) => {
+      setTimeout(() => {
+        document.querySelector(".lds-ring").classList.add("display-none");
+        document.querySelector(".user-input").classList.remove("display-none");
+        document
+          .querySelector(".plain-text-before")
+          .classList.remove("plain-text-before");
+        document.querySelector(".plain-text").classList.add("plain-text-after");
+        document.querySelector(".index").classList.remove("index");
+
+        let objectStatus = "encrypt";
+
+        let object = {
+          sortedArray,
+          objectStatus,
+        };
+
+        renderObject(object, images);
+      }, 2500);
+      // console.log(sortedArray);
+    })
+    .catch(() => {
+      const errorObject = {
+        image: images.errorIcon,
+        status: 403,
+        str: "Issue Detected!",
+      };
+      renderPopup(errorObject);
+    });
+};
 
 clearButton.addEventListener("click", function (event) {
   event.preventDefault();
@@ -30,6 +74,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (event.target.classList.contains("copy-icon")) {
       copyText(event.target);
     }
+    if (event.target.classList.contains("get-all")) {
+      getAll();
+    }
   });
 });
 
@@ -40,10 +87,21 @@ const copyText = function (clickedElement) {
   navigator.clipboard
     .writeText(textToCopy)
     .then(() => {
-      alert("Text copied to clipboard!");
+      const renderPopupObject = {
+        image: images.checkIcon,
+        status: 200,
+        str: "Text copied!",
+      };
+      renderPopup(renderPopupObject);
     })
-    .catch((err) => {
-      console.error("Failed to copy: ", err);
+    .catch((e) => {
+      const errorObject = {
+        image: images.errorIcon,
+        status: 403,
+        str: "Issue Detected!",
+      };
+      console.log(e);
+      renderPopup(errorObject);
     });
 };
 
@@ -56,12 +114,6 @@ const tryAgain = function () {
   card.classList.add("display-none");
   userInput.classList.remove("display-none");
 };
-
-// this task is already implemented in decode.js. need to devise a method to import it here
-
-// function getAll() {
-//   console.log("hi");
-// }
 
 userInput.addEventListener("input", function () {
   if (userInput.value.trim() !== "") {
@@ -92,10 +144,35 @@ cipherForm.addEventListener("submit", function (event) {
   var userShift = +document.querySelector(".input-number").value;
   var spinner = document.querySelector(".lds-ring");
   var userInputField = document.querySelector(".user-input");
+  var cardContainer = document.querySelector(".card-container");
 
-  if (userInputText.trim() == "") {
-    console.log("Please enter a valid input");
+  userString = userInputText;
+
+  if (userInputText.trim() == "" || !Number.isInteger(userShift)) {
+    console.log(Number.isInteger(userShift));
+    const errorObject = {
+      image: images.errorIcon,
+      status: 403,
+      str: "Invalid Input!",
+    };
+    renderPopup(errorObject);
   } else {
+    submitCounter++;
+
+    document.querySelector(".card-container").classList.add("index");
+
+    if (submitCounter > 1) {
+      if (document.querySelector(".plain-text-after")) {
+        document
+          .querySelector(".plain-text-after")
+          .classList.remove("plain-text-after");
+        document
+          .querySelector(".plain-text")
+          .classList.add("plain-text-before");
+      }
+    }
+
+    cardContainer.innerHTML = "";
     document.querySelector(".user-input").value = "";
 
     submit.style.visibility = "hidden";
@@ -109,7 +186,7 @@ cipherForm.addEventListener("submit", function (event) {
       spinner.classList.add("display-none");
     }, 1500);
 
-    cipherConv(userInputText, userShift, alphabetLetters)
+    cipherConv(userInputText, userShift, data.alphabetLetters)
       .then((arr) => {
         let decryptText = arr.cipherStr;
         let userShift = arr.shiftNumber;
@@ -119,26 +196,19 @@ cipherForm.addEventListener("submit", function (event) {
           renderString(decryptText, userShift, images);
         }, 1500);
       })
-      .catch((err) => {
-        console.error(
-          `Failed to get the String Please try a different technique: ${err}`
-        );
+      .catch((e) => {
+        const errorObject = {
+          image: images.errorIcon,
+          status: 403,
+          str: "Issue Detected!",
+        };
+        console.log(e);
+        renderPopup(errorObject);
       });
   }
 });
 
 async function cipherConv(userInput, shiftNumber, alphabetLetters) {
-  // this functionality is being used in two locations (decode.js), which isnt ideal (room for improvment)
-  // async function fetchData() {
-  //   try {
-  //     const response = await fetch("json_files/alphabet.json");
-  //     const data = await response.json();
-  //     return data;
-  //   } catch (e) {
-  //     console.log(`Error reading data.json: ${e}`);
-  //   }
-  // }
-
   let alphabetData = alphabetLetters;
   let userInputArr = userInput.split("");
   let cipherArr = [];
@@ -186,14 +256,18 @@ async function renderString(str, userShift, imgObject) {
 
   const card = `
                 <div class="card">
-                  <img src="${copyImg}" class="copy-icon" alt="Copy to clipboard" onclick="copyText(this)">
+                  <img src="${copyImg}" class="copy-icon" alt="Copy to clipboard">
                   <div class="card-content">
                     <p>Decrypted Text: <span id="matchText">${str}</span></p>
-                    <p>Shift Number: <span id="cipherConverter">${userShift}</span></p>
+                    <p>Shift Number: <span id="cipherConverter">${userShift}</span></p> 
                   </div>
                 </div>
                 <div class="buttons-index">
-                  <button class="try-again" type="button" onclick="tryAgain()">
+                  <button class="get-all" type="button">
+                    <img src="${getAllIcon}" alt="Get All">
+                    Get All
+                  </button>
+                  <button class="try-again" type="button">
                     <img src="${refreshImg}" alt="Try Again">
                     Try again
                   </button>

@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anta&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="module" src="scripts/script.js" defer></script>
+    <script type="module" src="js/script.js" defer></script>
   </head>
   <body>
     <div class="header">
@@ -20,7 +20,7 @@
         <a href="decode.html">Decrypt Text</a>
       </div>
     </div>
-    <div class="plain-text">
+    <div class="plain-text plain-text-before">
       <form id="cipherForm" class="cipher-form">
         <div class="input-container">
           <input class="user-input" type="text" placeholder="Enter the text you want to encrypt..."></input>
@@ -56,8 +56,13 @@
         </button>
        </div> -->
     </div>
+    <div class="popupContainer">
+      <!-- <div class="popup">
+        <p><img src="images/check-mark.png">Copied to Clipboard</p>
+      </div> -->
+    </div>
     <!-- https://loading.io/css/ -->
-    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <div class="lds-ring display-none"><div></div><div></div><div></div><div></div></div>
     <footer>
       <p>
         &copy; <span id="currentYear"></span>

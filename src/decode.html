@@ -12,8 +12,10 @@
       rel="stylesheet"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="module" src="scripts/decode.js" defer></script>
+    <script type="module" src="js/decode.js" defer></script>
   </head>
+  <!-- Uncaught TypeError: Cannot read properties of null (reading 'classList')
+    at script.js:37:26 -->
   <body>
     <div class="header">
       <div>
@@ -24,12 +26,16 @@
       </div>
     </div>
     <div class="content">
-      <div class="cipher-text">
+      <div class="cipher-text cipher-text-before">
           <form id="cipherForm" class="cipher-form-decode">
               <div class="input-container">
                 <input class="cipher-input" type="text" placeholder="Enter the encrypted text..."></input>
               </div>
-              <input class="cipher-submit" type="submit">
+              <div class="buttons buttons-decode">
+                <input class="cipher-submit" type="submit">
+                <button class="clear-button" type="button">Clear</button>
+
+              </div>
           </form>
       </div>
         <div class="card-container">
@@ -43,8 +49,13 @@
           </div> -->
         </div>
     </div>
+    <div class="popupContainer">
+      <!-- <div class="popup">
+        <p><img src="images/check-mark.png">Copied to Clipboard</p>
+      </div> -->
+    </div>
     <!-- https://loading.io/css/ -->
-    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <div class="lds-ring display-none"><div></div><div></div><div></div><div></div></div>
     <footer>
       <p>
         &copy; <span id="currentYear"></span>
